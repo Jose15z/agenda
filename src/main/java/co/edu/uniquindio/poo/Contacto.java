@@ -54,14 +54,14 @@ public class Contacto {
     public void setEmail(String email) {
         this.email = email;
     }
-    /*public boolean verificarContacto(String nombre, String telefono){
+    
+    public boolean verificarContacto(String nombre, String telefono){
         return true;
-    }*/
+    }
+    
     @Override
     public String toString() {
     return "\t\tContacto \nnombre= " + nombre + "\nalias= " + alias + "\ndireccion= " + direccion + "\ntelefono= " + telefono
                 + "\nemail= " + email ;
     }
-    
-    
 }

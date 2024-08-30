@@ -10,6 +10,7 @@ public class Reunion {
     LocalDate fecha;
     LocalTime hora;
     public Collection<Contacto> contactos;
+    
     public Reunion(String descripcion, LocalDate fecha, LocalTime hora ){
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -34,6 +35,14 @@ public class Reunion {
     public void setHora(LocalTime hora) {
         this.hora = hora;
     }
+    
+    @Override
+    public String toString() {
+        return "Reunion [descripcion=" + descripcion + ", fecha=" + fecha + ", hora=" + hora + ", contactos="
+                + contactos + "]";
+    }
+    
+    
     
     
 }
