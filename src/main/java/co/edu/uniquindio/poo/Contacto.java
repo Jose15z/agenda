@@ -7,6 +7,16 @@ public class Contacto {
     private String telefono;
     private String email;
 
+    
+
+    /**
+     * Método constructor de la clase Contacto
+     * @param nombre
+     * @param alias
+     * @param direccion
+     * @param telefono
+     * @param email
+     */
     public Contacto(String nombre, String alias, String direccion, String telefono, String email){
         this.nombre = nombre;
         this.alias = alias;
@@ -55,13 +65,10 @@ public class Contacto {
         this.email = email;
     }
     
-    public boolean verificarContacto(String nombre, String telefono){
-        return true;
-    }
-    
+    //Método ToString de la clase Contacto
     @Override
     public String toString() {
     return "\t\tContacto \nnombre= " + nombre + "\nalias= " + alias + "\ndireccion= " + direccion + "\ntelefono= " + telefono
-                + "\nemail= " + email ;
+        + "\nemail= " + email + "\n\n" ;
     }
 }

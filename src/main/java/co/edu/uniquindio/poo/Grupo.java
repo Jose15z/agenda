@@ -7,12 +7,18 @@ import java.util.LinkedList;
 public class Grupo {
    String nombre;
    Categoria categoria;
-   public Collection<Contacto> contactos;
- 
+   public Collection<Contacto> participantes;
+
+   /**
+    * Método constructor de la clase grupo
+    * @param nombre
+    * @param categoria
+    * @param participantes 
+    */
    public Grupo(String nombre, Categoria categoria) {
       this.nombre = nombre;
       this.categoria = categoria;
-      this.contactos = new LinkedList<>();
+      this.participantes = new LinkedList<>();
    }
 
    public String getNombre() {
@@ -23,45 +29,66 @@ public class Grupo {
       this.nombre = nombre;
    }
 
-   public boolean verificarContacto(String telefono, String nombre) {
+   public Categoria getCategoria() {
+      return categoria;
+   }
+
+   public void setCategoria(Categoria categoria) {
+      this.categoria = categoria;
+   }
+
+   public void setParticipantes(Collection<Contacto> contactos) {
+      this.participantes = contactos;
+   }
+   public Collection<Contacto> getParticipantes() {
+      return participantes;
+   }
+
+   //Método para verificar que no se permitan participantes duplicados en un grupo
+   public boolean verificarParticipante(String telefono, String nombre) {
       boolean centinela = false;
-      for (Contacto contacto : contactos) {
+      for (Contacto contacto : participantes) {
          if (contacto.getTelefono().equals(telefono) && contacto.getNombre().equals(nombre)) {
             centinela = true;
          }
-
       }
       return centinela;
    }
 
-   public void agregarContacto(Contacto contacto){
-      if(!verificarContacto(contacto.getTelefono(), contacto.getNombre())){
-         contactos.add(contacto);
-      }
-   }
-
-   public void eliminarContacto(String telefono){
-      for(Contacto contacto : contactos){
-         if(contacto.getTelefono().equals(telefono)){
-            contactos.remove(contacto);
-         }
-      }
-   
-   }
-
-   public boolean limiteIntegrantes(Collection<Contacto> contactos){
-      boolean superaLimite;
-      if(contactos.size() > 5){
+   //Método que limita el número de integrantes de un grupo a 5
+   public boolean limiteIntegrantes(Collection<Contacto> contactos) {
+      boolean superaLimite = false;
+      if (contactos.size() >= 5) {
          superaLimite = true;
-      }else{
-         superaLimite = false;
       }
       return superaLimite;
    }
 
+   //Método para agregar paticipantes a un grupo
+   public void agregarContactoParticipante(Contacto contacto) {
+      if (!limiteIntegrantes(participantes)) {
+         if (!verificarParticipante(contacto.getTelefono(), contacto.getNombre())) {
+            participantes.add(contacto);
+         }
+      }
+   }
+
+   //Método para eliminar participantes de un grupo
+   public void eliminarContactoParticipante(String telefono) {
+      for (Contacto contacto : participantes) {
+         if (contacto.getTelefono().equals(telefono)) {
+            participantes.remove(contacto);
+         }
+      }
+
+   }
+
+   //Método ToString de la clase Grupo
    @Override
    public String toString() {
-      return "Grupo [nombre=" + nombre + ", categoria=" + categoria + ", contactos=" + contactos + "]";
+      return "\t\tGrupo \nNombre=" + nombre + " \nCategoria=" + categoria + " \nParticipante=" + participantes + "\n\n";
    }
+
+ 
 
 }

@@ -16,10 +16,7 @@ import org.junit.jupiter.api.Test;
  */
 public class AppTest {
     private static final Logger LOG = Logger.getLogger(AppTest.class.getName());
-
-    /**
-     * Rigorous Test :-)
-     */
+    
     @Test
     public void shouldAnswerWithTrue() {
         LOG.info("Iniciado test shouldAnswerWithTrue");
