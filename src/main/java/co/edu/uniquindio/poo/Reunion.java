@@ -13,9 +13,6 @@ public class Reunion {
 
     /**
      * Método constructor de la clase Reunión
-     * @param descripccion
-     * @param fecha
-     * @param hora
      */
     public Reunion(String descripcion, LocalDate fecha, LocalTime hora ){
         this.descripcion = descripcion;
@@ -23,6 +20,8 @@ public class Reunion {
         this.hora = hora;
         asistentes = new LinkedList<>();
     }
+
+    //Getters y Setters de la clase
     public String getDescripcion() {
         return descripcion;
     }
@@ -84,8 +83,4 @@ public class Reunion {
         return "\t\tReunion \nDescripcion=" + descripcion + "\nFecha=" + fecha + "\nHora=" + hora + "\nContactos="
                 + asistentes + "\n\n";
     }
-    
-    
-    
-    
 }

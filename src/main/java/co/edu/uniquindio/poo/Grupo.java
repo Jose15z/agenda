@@ -1,3 +1,4 @@
+
 package co.edu.uniquindio.poo;
 
 import java.util.Collection;
@@ -21,6 +22,7 @@ public class Grupo {
       this.participantes = new LinkedList<>();
    }
 
+   //Getters y setters de la clase
    public String getNombre() {
       return nombre;
    }
@@ -83,7 +85,7 @@ public class Grupo {
 
    }
 
-   //Método ToString de la clase Grupo
+   //Método toString de la clase Grupo
    @Override
    public String toString() {
       return "\t\tGrupo \nNombre=" + nombre + " \nCategoria=" + categoria + " \nParticipante=" + participantes + "\n\n";

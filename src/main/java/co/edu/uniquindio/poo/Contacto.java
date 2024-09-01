@@ -25,6 +25,8 @@ public class Contacto {
         this.email = email;
     }
 
+
+    //Getters y setters de la clase
     public String getNombre() {
         return nombre;
     }
@@ -65,7 +67,7 @@ public class Contacto {
         this.email = email;
     }
     
-    //Método ToString de la clase Contacto
+    //Método toString de la clase Contacto
     @Override
     public String toString() {
     return "\t\tContacto \nnombre= " + nombre + "\nalias= " + alias + "\ndireccion= " + direccion + "\ntelefono= " + telefono
