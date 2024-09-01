@@ -33,7 +33,7 @@ public class Agenda {
         return false;
     }
 
-    //Método para eliminar un conatacto
+    //Método para eliminar un contacto
     public void eliminarContacto(String telefono){
         for (Contacto contacto : contactos){
             if(contacto.getTelefono().equals(telefono)){
@@ -205,6 +205,52 @@ public class Agenda {
     }
 
     /**
+     * Metodo para eliminar participantes de un grupo
+     */
+    public void eliminarParticipanteGrupo(){
+         // Obtener el nombre del grupo
+         String nombreGrupo = ingresarStringMensaje("Ingrese el nombre del grupo al que desea eliminar del gru:");
+
+         // Buscar el grupo por nombre
+         Grupo grupoSeleccionado = null;
+         for (Grupo grupo : grupos) {
+             if (grupo.getNombre().equalsIgnoreCase(nombreGrupo)) {
+                 grupoSeleccionado = grupo;
+                 break;
+             }
+         }
+ 
+         // Validar si el grupo fue encontrado
+         if (grupoSeleccionado == null) {
+             JOptionPane.showMessageDialog(null, "Grupo no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+             return;
+         }
+ 
+         // Obtener el número de teléfono del contacto
+         String telefonoContacto = ingresarStringMensaje("Ingrese el teléfono del contacto que desea eliminar del grupo:");
+ 
+         // Buscar el contacto por teléfono
+         Contacto contactoSeleccionado = null;
+         for (Contacto contacto : contactos) {
+             if (contacto.getTelefono().equals(telefonoContacto)) {
+                 contactoSeleccionado = contacto;
+                 break;
+             }
+         }
+ 
+         // Validar si el contacto fue encontrado
+         if (contactoSeleccionado == null) {
+             JOptionPane.showMessageDialog(null, "Contacto no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+             return;
+         }
+ 
+         // Agregar el contacto seleccionado al grupo
+         grupoSeleccionado.getParticipantes().remove(contactoSeleccionado);
+         JOptionPane.showMessageDialog(null, "Contacto eliminado del grupo", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
+    /**
      * Método que permite ingresar una reunión
      */
     private Reunion crearReunion() {
@@ -252,15 +298,7 @@ public class Agenda {
      */
     public static void manejarContactos(Agenda agenda) {
         String[] opciones = {"Ver Contactos", "Agregar Contacto", "Eliminar Contacto", "Volver"};
-        String seleccion = (String) JOptionPane.showInputDialog(
-            null, 
-            "Seleccione una opción", 
-            "Gestión de Contactos", 
-            JOptionPane.PLAIN_MESSAGE, 
-            null, 
-            opciones, 
-            opciones[0]
-        );
+        String seleccion = (String) JOptionPane.showInputDialog(null, "Seleccione una opción", "Gestión de Contactos", JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
 
         switch (seleccion) {
             case "Ver Contactos":
@@ -280,39 +318,112 @@ public class Agenda {
         }
     }
 
-    /**
-     * Manejo de Reuniones
-     */
-    public static void manejarReuniones(Agenda agenda) {
-        String[] opciones = {"Ver Reuniones", "Agregar Reunión", "Eliminar Reunión", "Volver"};
-        String seleccion = (String) JOptionPane.showInputDialog(
-            null, 
-            "Seleccione una opción", 
-            "Gestión de Reuniones", 
-            JOptionPane.PLAIN_MESSAGE, 
-            null, 
-            opciones, 
-            opciones[0]
-        );
+ // Método para agregar un asistente a una reunión
+ public void agregarAsistenteAReunion() {
+    // Obtener la descripción de la reunión
+    String descripcionReunion = ingresarStringMensaje("Ingrese la descripción de la reunión:");
 
-        switch (seleccion) {
-            case "Ver Reuniones":
-                StringBuilder reunionesInfo = new StringBuilder();
-                for (Reunion reunion : agenda.reuniones) {
-                    reunionesInfo.append(reunion).append("\n");
-                }
-                JOptionPane.showMessageDialog(null, reunionesInfo.toString(), "Reuniones", JOptionPane.INFORMATION_MESSAGE);
-                break;
-            case "Agregar Reunión":
-                agenda.ingresarReuniones();
-                break;
-            case "Eliminar Reunión":
-                String descripcion = JOptionPane.showInputDialog("Ingrese la descripción de la reunión: ");
-                agenda.eliminarReunion(descripcion);
-                break;
+    // Buscar la reunión por descripción
+    Reunion reunionSeleccionada = null;
+    for (Reunion reunion : reuniones) {
+        if (reunion.getDescripcion().equalsIgnoreCase(descripcionReunion)) {
+            reunionSeleccionada = reunion;
+            break;
         }
     }
-    /**
+
+    if (reunionSeleccionada == null) {
+        JOptionPane.showMessageDialog(null, "Reunión no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Obtener el número de teléfono del contacto
+    String telefonoContacto = ingresarStringMensaje("Ingrese el teléfono del asistente:");
+
+    // Buscar el contacto por teléfono
+    Contacto contactoSeleccionado = null;
+    for (Contacto contacto : contactos) {
+        if (contacto.getTelefono().equals(telefonoContacto)) {
+            contactoSeleccionado = contacto;
+            break;
+        }
+    }
+
+    if (contactoSeleccionado == null) {
+        JOptionPane.showMessageDialog(null, "Asistente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Agregar el asistente seleccionado a la reunión
+    reunionSeleccionada.agregarContactoAsistente(contactoSeleccionado);
+    JOptionPane.showMessageDialog(null, "Asistente añadido a la reunión", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+}
+
+// Método para eliminar un asistente de una reunión
+public void eliminarAsistenteDeReunion() {
+    // Obtener la descripción de la reunión
+    String descripcionReunion = ingresarStringMensaje("Ingrese la descripción de la reunión:");
+
+    // Buscar la reunión por descripción
+    Reunion reunionSeleccionada = null;
+    for (Reunion reunion : reuniones) {
+        if (reunion.getDescripcion().equalsIgnoreCase(descripcionReunion)) {
+            reunionSeleccionada = reunion;
+            break;
+        }
+    }
+
+    if (reunionSeleccionada == null) {
+        JOptionPane.showMessageDialog(null, "Reunión no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Obtener el número de teléfono del asistente
+    String telefonoContacto = ingresarStringMensaje("Ingrese el teléfono del asistente:");
+
+    // Eliminar el asistente de la reunión
+    reunionSeleccionada.eliminarContactoAsistente(telefonoContacto);
+    JOptionPane.showMessageDialog(null, "Asistente eliminado de la reunión", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+}
+
+// Método para manejar la selección de reuniones
+public static void manejarReuniones(Agenda agenda) {
+    String[] opciones = {"Ver Reuniones", "Agregar Reunión", "Eliminar Reunión", "Agregar Asistente", "Eliminar Asistente", "Volver"};
+    String seleccion = (String) JOptionPane.showInputDialog(
+        null, 
+        "Seleccione una opción", 
+        "Gestión de Reuniones", 
+        JOptionPane.PLAIN_MESSAGE, 
+        null, 
+        opciones, 
+        opciones[0]
+    );
+
+    switch (seleccion) {
+        case "Ver Reuniones":
+            StringBuilder reunionesInfo = new StringBuilder();
+            for (Reunion reunion : agenda.reuniones) {
+                reunionesInfo.append(reunion).append("\n");
+            }
+            JOptionPane.showMessageDialog(null, reunionesInfo.toString(), "Reuniones", JOptionPane.INFORMATION_MESSAGE);
+            break;
+        case "Agregar Reunión":
+            agenda.ingresarReuniones();
+            break;
+        case "Eliminar Reunión":
+            String descripcion = JOptionPane.showInputDialog("Ingrese la descripción de la reunión:");
+            agenda.eliminarReunion(descripcion);
+            break;
+        case "Agregar Asistente":
+            agenda.agregarAsistenteAReunion();
+            break;
+        case "Eliminar Asistente":
+            agenda.eliminarAsistenteDeReunion();
+            break;
+        }
+    }
+
+ /**
      * Manejo de Grupos
      */
     public static void manejarGrupos(Agenda agenda) {
@@ -350,4 +461,11 @@ public class Agenda {
                 break;
         }
     }
+
 }
+
+
+
+
+
+

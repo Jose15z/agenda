@@ -26,6 +26,9 @@ public class Reunion {
     public String getDescripcion() {
         return descripcion;
     }
+    public Collection<Contacto> getAsistentes() {
+        return asistentes;
+    }
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
