@@ -10,7 +10,7 @@ public class App {
         boolean continuar = true;
 
         while (continuar) {
-            String[] opciones = {"Contactos", "Reuniones", "Grupos", "Salir"};
+            String[] opciones = {"", "Contactos", "Reuniones", "Grupos", "Salir"};
             String seleccion = (String) JOptionPane.showInputDialog(null, "Seleccione una opción", "Menú Principal", JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
 
             //Casos en los que el programa finaliza
